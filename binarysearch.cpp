@@ -101,6 +101,9 @@ tree_t *binarytree::findmax(tree_t *target) {
 void binarytree::add(int value) {
   tree_t *cur, *data;
 
+  /* if data is duplicated, do nothing */
+  if (findtree(value) != NULL) return;
+
   /* set up new data */
   data = new tree_t;
   data -> value = value;
@@ -272,37 +275,21 @@ void binarytree::show(void) {
 int main(void) {
   /* encoding */
   binarytree binarytree;
-  
-#if 0
-  /* tiral coding take out later */
-  int i;
-  int array[] = {783, 386, 277, 415, 293, 835, 886, 992, 149, 921, 862, 527, 190, 559, 263, 426,  40, 926, 3, 55, 845, -1};
-  
-  i = 0;
-  while (array[i] >= 0) binarytree.add(array[i++]);
 
-  /* print encoded data */
-  binarytree.show();
-  
-  binarytree.del(277);
-
-  binarytree.show();
-#endif
-
-  /* input or by file */
-  char input[10];
-  cout << "input or file?" << endl;
-  cin.get (input,10);
+  /* input or file */
+  char option[10];
+  cout << "first input: input by console (i) or file (f)?" << endl;
+  cin.get (option, 10);
   cin.get();
-  
+
   /* number entered by input */
-  if(input[0] == 'i' || input[0] == 'I'){
+  if(option[0] == 'i' || option[0] == 'I'){
     cout << "enter a series of numbers separated by a single space" << endl;
     char series[1024];
     cin.getline(series, 1024);
-
+    
     /* read the input until space and send it to binarytree*/
-
+    
     int value = 0;
     
     for (int i = 0; series[i] != '\0'; i++){
@@ -315,8 +302,9 @@ int main(void) {
       }
     }
   }
-  
-  if(input[0] == 'f' || input[0] == 'F'){
+
+  /* file */
+  if(option[0] == 'f' || option[0] == 'F'){
     string myText;
     
     /* Read from the text file */
@@ -331,33 +319,62 @@ int main(void) {
     MyReadFile.close();
   }
   
-  binarytree.show();
-
-
-  /* deleting or search */
-  char move[10];
-  cout << "delete or search?" << endl;
-  cin.get (move,10);
-  cin.get();
-
-  /* deleting */
-  if(move[0] == 'd' || move[0] == 'D'){
-    int del;
-    cout << "enter a number to delete" << endl;
-    cin >> del;
-    binarytree.del(del);
-  }
-
-  /* searching */
-  if(move[0] == 's' || move[0] == 'S'){
-    int srch;
-    cout << "enter a number to search" << endl;
-    cin >> srch;
-    binarytree.search(srch);
-  }
+   while (1){
+    /* input delete or search */
+    char input[10];
+    cout << "input / delete / search / print?" << endl;
+    cin.get (input,10);
+    cin.get();
     
-  binarytree.show();
-  
+    /* number entered by input */
+    if(input[0] == 'i' || input[0] == 'I'){
+      input[0] = 'a';
+      cout << "enter a series of numbers separated by a single space" << endl;
+      char series[1024];
+      cin.getline(series, 1024);
+      
+      /* read the input until space and send it to binarytree*/
+      
+      int value = 0;
+      
+      for (int i = 0; series[i] != '\0'; i++){
+	if (series[i] != ' '){
+	  value = value*10 + (series[i] - '0');
+	  if (series[i+1] == ' ' || series[i+1] == '\0'){
+	    binarytree.add(value);
+	    value = 0;
+	  }
+	}
+      }
+    }
+    
+    /* deleting */
+    if(input[0] == 'd' || input[0] == 'D'){
+      input[0] = 'a';
+      int del;
+      cout << "enter a number to delete" << endl;
+      cin >> del;
+      cin.get();
+      binarytree.del(del);
+      del = 0;
+    }
+    
+    /* searching */
+    if(input[0] == 's' || input[0] == 'S'){
+      input[0] = 'a';
+      int srch;
+      cout << "enter a number to search" << endl;
+      cin >> srch;
+      cin.get();
+      binarytree.search(srch);
+      srch = 0;
+    }
+    
+    if(input[0] == 'p' || input[0] == 'P'){
+      input[0] = 'a';
+       binarytree.show();
+    }
+  }
   return 0;
   
   
