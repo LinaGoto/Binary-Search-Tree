@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
-#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -265,5 +264,67 @@ int main(void) {
 
   binarytree.show();
 
+
+
+
+  /* input or by file */
+  char input[10];
+  cout << "input or file?" << endl;
+  cin.get (input,10);
+  cin.get();
+
+  /* number entered by input */
+  if(input[0] == 'i' || input[0] == 'I'){
+    cout << "enter a series of numbers separated by a single space" << endl;
+    string series;
+    cin >> series;
+    cin.get();
+
+    /* read the input until space and send it to binarytree*/
+    for (int i = 0; series[i] != '\0'; i++){
+      if (series[i] != ' '){
+	int j = 0;
+	string str[j] = series[i];
+	j++;
+	if (series[i+1] == ' ' || series[i+1] == '\0'){
+	  int myint = atoi(str);
+	  binarytree.add(myint);
+	  str[0] = '\0';
+	  j = 0;
+	  i++;
+	}
+      }
+    }
+    
+    if(input[0] == 'f' || input[0] == 'F'){
+      string myText;
+      
+      /* Read from the text file */
+      ifstream MyReadFile("random_number.txt");
+      
+      /* read the file and send it to viod file */
+      getline (MyReadFile, myText);
+      stringstream MyStreamText(myText);
+      
+      /* get each number and order it */
+      while(getline(MyStreamText, myText, ' ')) {
+	
+	heap[track] = atoi(myText.c_str());
+	track ++;
+    
+	/* order heap */
+	order(track, heap);
+      }
+      
+      /*  Close the file */
+      MyReadFile.close();
+      
+
+      
+    }
+  }
+
   return 0;
+  
+  
 }
