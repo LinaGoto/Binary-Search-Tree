@@ -5,6 +5,10 @@
 
 using namespace std;
 
+/* Lina Goto
+
+   binary search tree using linked list */
+
 typedef struct tree_s {
   int value;
   tree_s *left, *right;
@@ -93,6 +97,7 @@ tree_t *binarytree::findmax(tree_t *target) {
   return target;
 }
 
+/* adding value */
 void binarytree::add(int value) {
   tree_t *cur, *data;
 
@@ -111,6 +116,7 @@ void binarytree::add(int value) {
   }
 }
 
+/* deleting value */
 void binarytree::del(int value) {
   tree_t *cur = root;
   tree_t *pre, *maxtree, *pmaxtree;
@@ -186,6 +192,7 @@ void binarytree::del(int value) {
 static int parent    (int i) { return (i - 1) / 2; }
 static int getwidth  (int i) { return (1 << i); }
 
+/* finding depth */
 int binarytree::getdepth(tree_t *tree, int depth) {
   static int maxdepth;
 
@@ -200,6 +207,7 @@ int binarytree::getdepth(tree_t *tree, int depth) {
   return maxdepth;
 }
 
+/* finding the rightmost */
 int binarytree::leftright(int x, int y, int relativedepth) {
   int target = getwidth(x) + y - 1;
   int amIleft = 0;
@@ -212,6 +220,7 @@ int binarytree::leftright(int x, int y, int relativedepth) {
   return amIleft;
 }
 
+/* fiding node */
 tree_t *binarytree::locatetree(int x, int y) {
   tree_t *tree = root;
   int depth = x;
@@ -228,6 +237,7 @@ tree_t *binarytree::locatetree(int x, int y) {
   return tree;
 }
 
+/* search; node existing */
 void binarytree::search(int value){
   tree_t *cur = findtree(value);
   if (cur == NULL) {
@@ -237,6 +247,7 @@ void binarytree::search(int value){
   }
 }
 
+/* printing tree */
 void binarytree::show(void) {
   int d, w, i, z;
   tree_t *tree;
@@ -263,6 +274,7 @@ int main(void) {
   binarytree binarytree;
   
 #if 0
+  /* tiral coding take out later */
   int i;
   int array[] = {783, 386, 277, 415, 293, 835, 886, 992, 149, 921, 862, 527, 190, 559, 263, 426,  40, 926, 3, 55, 845, -1};
   
@@ -310,8 +322,7 @@ int main(void) {
     /* Read from the text file */
     ifstream MyReadFile("random_number.txt");
     
-    /* read the file and send it to viod file */
-    
+    /* read from file and send to add */
     while(getline(MyReadFile, myText, ' ')) {
       binarytree.add(atoi(myText.c_str()));
     }
