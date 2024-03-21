@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -272,25 +273,23 @@ int main(void) {
   cout << "input or file?" << endl;
   cin.get (input,10);
   cin.get();
-
+  
   /* number entered by input */
   if(input[0] == 'i' || input[0] == 'I'){
     cout << "enter a series of numbers separated by a single space" << endl;
     string series;
     cin >> series;
     cin.get();
-
+    
     /* read the input until space and send it to binarytree*/
+
+    int value = 0;
+    
     for (int i = 0; series[i] != '\0'; i++){
       if (series[i] != ' '){
-	int j = 0;
-	string str[j] = series[i];
-	j++;
+	value = value*10 + (series[i] - '0');
 	if (series[i+1] == ' ' || series[i+1] == '\0'){
-	  int myint = atoi(str);
-	  binarytree.add(myint);
-	  str[0] = '\0';
-	  j = 0;
+	  binarytree.add(value);
 	  i++;
 	}
       }
@@ -309,11 +308,7 @@ int main(void) {
       /* get each number and order it */
       while(getline(MyStreamText, myText, ' ')) {
 	
-	heap[track] = atoi(myText.c_str());
-	track ++;
-    
-	/* order heap */
-	order(track, heap);
+	binarytree.add(atoi(myText.c_str()));
       }
       
       /*  Close the file */
