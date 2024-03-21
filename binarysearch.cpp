@@ -247,7 +247,7 @@ void binarytree::show(void) {
     for (w = 0; w < getwidth(d); w ++) {
       tree = locatetree(d, w);
       if (tree == NULL) {
-	printf("  x ");
+	printf("    ");
       } else {
 	printf("%4d", tree -> value);
       }
@@ -311,10 +311,8 @@ int main(void) {
     ifstream MyReadFile("random_number.txt");
     
     /* read the file and send it to viod file */
-    getline (MyReadFile, myText);
-    stringstream MyStreamText(myText);
     
-    while(getline(MyStreamText, myText, ' ')) {
+    while(getline(MyReadFile, myText, ' ')) {
       binarytree.add(atoi(myText.c_str()));
     }
     
