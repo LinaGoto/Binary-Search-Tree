@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -302,35 +303,24 @@ int main(void) {
       }
     }
   }
-
-#if 0  
+  
   if(input[0] == 'f' || input[0] == 'F'){
-    char myText[1024];
+    string myText;
     
     /* Read from the text file */
     ifstream MyReadFile("random_number.txt");
     
     /* read the file and send it to viod file */
     getline (MyReadFile, myText);
-
-     /* read the input until space and send it to binarytree*/
-
-    int value = 0;
-
-    for (int i = 0; series[i] != '\0'; i++){
-      if (series[i] != ' '){
-        value = value*10 + (series[i] - '0');
-        if (series[i+1] == ' ' || series[i+1] == '\0'){
-          binarytree.add(value);
-          value = 0;
-        }
-      }
+    stringstream MyStreamText(myText);
+    
+    while(getline(MyStreamText, myText, ' ')) {
+      binarytree.add(atoi(myText.c_str()));
     }
     
     /*  Close the file */
     MyReadFile.close();
   }
-#endif
   
   binarytree.show();
 
