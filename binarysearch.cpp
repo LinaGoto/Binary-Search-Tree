@@ -294,30 +294,28 @@ int main(void) {
 	}
       }
     }
-    
-    if(input[0] == 'f' || input[0] == 'F'){
-      string myText;
-      
-      /* Read from the text file */
-      ifstream MyReadFile("random_number.txt");
-      
-      /* read the file and send it to viod file */
-      getline (MyReadFile, myText);
-      stringstream MyStreamText(myText);
-      
-      /* get each number and order it */
-      while(getline(MyStreamText, myText, ' ')) {
-	
-	binarytree.add(atoi(myText.c_str()));
-      }
-      
-      /*  Close the file */
-      MyReadFile.close();
-      
-
-      
-    }
   }
+  
+  if(input[0] == 'f' || input[0] == 'F'){
+    string myText;
+    
+    /* Read from the text file */
+    ifstream MyReadFile("random_number.txt");
+    
+    /* read the file and send it to viod file */
+    getline (MyReadFile, myText);
+    stringstream MyStreamText(myText);
+    
+    /* get each number and order it */
+    while(getline(MyStreamText, myText, ' ')) {    
+      binarytree.add(atoi(myText.c_str()));
+    }
+    
+    /*  Close the file */
+    MyReadFile.close();
+  }
+  
+  binarytree.show();
 
   return 0;
   
