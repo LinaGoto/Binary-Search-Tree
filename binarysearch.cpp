@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
-#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -31,7 +30,8 @@ public:
   /* operation */
   void add (int value);
   void del (int value);
-
+  void search (int value);
+  
   /* show tree */
   void show(void);
 };
@@ -227,6 +227,15 @@ tree_t *binarytree::locatetree(int x, int y) {
   return tree;
 }
 
+void binarytree::search(int value){
+  tree_t *cur = findtree(value);
+  if (cur == NULL) {
+    cout << "not found." << endl;
+  } else {
+    cout << "exists." << endl;
+  }
+}
+
 void binarytree::show(void) {
   int d, w, i, z;
   tree_t *tree;
@@ -249,11 +258,12 @@ void binarytree::show(void) {
 }
 
 int main(void) {
-  int i;
-  int array[] = {783, 386, 277, 415, 293, 835, 886, 992, 149, 921, 862, 527, 190, 559, 263, 426,  40, 926, 3, 55, 845, -1};
-  
   /* encoding */
   binarytree binarytree;
+  
+#if 0
+  int i;
+  int array[] = {783, 386, 277, 415, 293, 835, 886, 992, 149, 921, 862, 527, 190, 559, 263, 426,  40, 926, 3, 55, 845, -1};
   
   i = 0;
   while (array[i] >= 0) binarytree.add(array[i++]);
@@ -264,9 +274,7 @@ int main(void) {
   binarytree.del(277);
 
   binarytree.show();
-
-
-
+#endif
 
   /* input or by file */
   char input[10];
@@ -277,10 +285,9 @@ int main(void) {
   /* number entered by input */
   if(input[0] == 'i' || input[0] == 'I'){
     cout << "enter a series of numbers separated by a single space" << endl;
-    string series;
-    cin >> series;
-    cin.get();
-    
+    char series[1024];
+    cin.getline(series, 1024);
+
     /* read the input until space and send it to binarytree*/
 
     int value = 0;
@@ -290,33 +297,68 @@ int main(void) {
 	value = value*10 + (series[i] - '0');
 	if (series[i+1] == ' ' || series[i+1] == '\0'){
 	  binarytree.add(value);
-	  i++;
+	  value = 0;
 	}
       }
     }
   }
-  
+
+#if 0  
   if(input[0] == 'f' || input[0] == 'F'){
-    string myText;
+    char myText[1024];
     
     /* Read from the text file */
     ifstream MyReadFile("random_number.txt");
     
     /* read the file and send it to viod file */
     getline (MyReadFile, myText);
-    stringstream MyStreamText(myText);
-    
-    /* get each number and order it */
-    while(getline(MyStreamText, myText, ' ')) {    
-      binarytree.add(atoi(myText.c_str()));
+
+     /* read the input until space and send it to binarytree*/
+
+    int value = 0;
+
+    for (int i = 0; series[i] != '\0'; i++){
+      if (series[i] != ' '){
+        value = value*10 + (series[i] - '0');
+        if (series[i+1] == ' ' || series[i+1] == '\0'){
+          binarytree.add(value);
+          value = 0;
+        }
+      }
     }
     
     /*  Close the file */
     MyReadFile.close();
   }
+#endif
   
   binarytree.show();
 
+
+  /* deleting or search */
+  char move[10];
+  cout << "delete or search?" << endl;
+  cin.get (move,10);
+  cin.get();
+
+  /* deleting */
+  if(move[0] == 'd' || move[0] == 'D'){
+    int del;
+    cout << "enter a number to delete" << endl;
+    cin >> del;
+    binarytree.del(del);
+  }
+
+  /* searching */
+  if(move[0] == 's' || move[0] == 'S'){
+    int srch;
+    cout << "enter a number to search" << endl;
+    cin >> srch;
+    binarytree.search(srch);
+  }
+    
+  binarytree.show();
+  
   return 0;
   
   
